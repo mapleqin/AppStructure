@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--状态栏颜色-->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!--Toolbar颜色-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!--返回键样式-->
+        <!--<item name="drawerArrowStyle">@style/AppTheme.DrawerArrowToggle</item>-->
+        <!--底部导航颜色-->
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <!-- <item name="android:windowTranslucentStatus">true</item>-->
+    </style>
+</resources>

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AppStructure</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <array name="sample_list">
+        <item>Get Weather Sample</item>
+    </array>
+</resources>
