@@ -1,13 +1,11 @@
 apply plugin: 'com.android.library'
-apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'com.neenbedankt.android-apt'
 android {
-    compileSdkVersion 22
+    compileSdkVersion 21
     buildToolsVersion "22.0.1"
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 22
+        targetSdkVersion 16
         versionCode 1
         versionName "1.0"
     }
@@ -16,10 +14,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
     }
     packagingOptions {
         exclude 'LICENSE'
@@ -43,5 +37,15 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.toaker.common:tlog:1.0.0'
+
+    compile 'com.facebook.fresco:fresco:0.5.0'
+    compile 'com.facebook.fresco:drawee:0.5.0'
+    compile 'com.facebook.fresco:fbcore:0.5.0'
+    compile 'com.facebook.fresco:imagepipeline:0.5.0'
+    compile 'com.facebook.fresco:imagepipeline-okhttp:0.5.0'
+
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'io.reactivex:rxandroid:0.24.0'
+    compile 'com.jakewharton:butterknife:6.1.0'
 }
 apply from: './gradle-mvn-push.gradle'

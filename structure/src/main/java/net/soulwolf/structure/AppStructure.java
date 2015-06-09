@@ -22,15 +22,22 @@ import android.view.WindowManager;
 
 import com.toaker.common.tlog.TLog;
 
+import net.soulwolf.structure.component.OkHttpComponent;
+import net.soulwolf.structure.config.AppStructureConfig;
+
+import java.io.File;
+
 /**
  * author : Soulwolf Create by 2015/6/8 11:20
  * email  : ToakerQin@gmail.com.
  */
 public final class AppStructure {
 
-    public static final String LOG_TAG = "AppStructure:";
+    private static boolean isDebug;
 
-    public static AppStructure mAppStructure;
+    private static final String LOG_TAG = "AppStructure:";
+
+    private static AppStructure mAppStructure;
 
     private Context mContext;
 
@@ -38,13 +45,21 @@ public final class AppStructure {
 
     private int mScreenHeight;
 
-    public static void init(Context context){
-        if(context == null){
-            throw new IllegalArgumentException("AppStructure Context initialization parameters can not be NULL!");
+    private AppStructureConfig mAppStructureConfig;
+
+    public static void init(AppStructureConfig config){
+        if(config == null){
+            throw new IllegalArgumentException("AppStructure AppStructureConfig initialization parameters can not be NULL!");
         }
+        isDebug = config.isDebug();
         if(mAppStructure == null){
-            mAppStructure = new AppStructure(context);
+            synchronized (AppStructure.class){
+                if(mAppStructure == null){
+                    mAppStructure = new AppStructure(config);
+                }
+            }
         }
+        OkHttpComponent.init(config.getHttpConfig());
         TLog.i(LOG_TAG,"AppStructure init!");
     }
 
@@ -55,10 +70,15 @@ public final class AppStructure {
         return mAppStructure;
     }
 
-    AppStructure(Context context){
-        this.mContext = context;
+    public static boolean isDebug(){
+        return isDebug;
+    }
+
+    AppStructure(AppStructureConfig config){
+        this.mAppStructureConfig = config;
+        this.mContext = config.getContext();
         DisplayMetrics metrics = new DisplayMetrics();
-        ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE))
+        ((WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE))
                 .getDefaultDisplay().getMetrics(metrics);
         this.mScreenWidth = metrics.widthPixels;
         this.mScreenHeight = metrics.heightPixels;
@@ -74,5 +94,20 @@ public final class AppStructure {
 
     public int getScreenHeight(){
         return mScreenHeight;
+    }
+
+    public File getCacheDir(){
+        return mContext.getCacheDir();
+    }
+
+    public String getServer(){
+        if(mAppStructureConfig != null){
+            return mAppStructureConfig.getServerUrl();
+        }
+        return null;
+    }
+
+    public AppStructureConfig getAppStructureConfig() {
+        return mAppStructureConfig;
     }
 }
